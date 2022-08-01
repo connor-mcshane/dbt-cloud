@@ -42,3 +42,12 @@ jobs:
 
       - name: Test dbt models
         run: dbt test
+
+      - name: build single html
+        run: python dbt-docs-spa.py
+
+      uses: ./
+      with:
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        remote_url: https://github.com/dbt-cloud/gh-pages-action.git
