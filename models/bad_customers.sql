@@ -1,6 +1,6 @@
 with bad_customers as (
 
-    select * from {{ ref('stg_customers') }}
+    select * from {{ ref('stg_silly_sausages') }}
 
 ),
 
