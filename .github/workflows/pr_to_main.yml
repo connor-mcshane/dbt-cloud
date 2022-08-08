@@ -1,4 +1,4 @@
-name: pr_to_main
+name: deploy_docs
 
 on:
   push:
@@ -6,9 +6,7 @@ on:
       - main
 env:
   DBT_PROFILES_DIR: ./
-
-  DBT_GOOGLE_PROJECT_DEV: ${{ secrets.DBT_GOOGLE_PROJECT_DEV }}
-  DBT_GOOGLE_BIGQUERY_KEYFILE_DEV: ./dbt-service-account.json
+  DBT_GOOGLE_BIGQUERY_KEYFILE: ./dbt-service-account.json
 
 jobs:
   deploy_dbt_docs:
@@ -27,7 +25,7 @@ jobs:
         run: 'echo "$KEYFILE" > ./dbt-service-account.json'
         shell: bash
         env:
-          KEYFILE: ${{secrets.DBT_GOOGLE_BIGQUERY_KEYFILE_DEV}}
+          KEYFILE: ${{secrets.DBT_GOOGLE_BIGQUERY_KEYFILE}}
 
       - name: Install dependencies
         run: |
@@ -44,6 +42,6 @@ jobs:
         uses: crazy-max/ghaction-github-pages@v3
         with:
           target_branch: gh-pages
-          build_dir: docs
+          build_dir: target
         env:
           GITHUB_TOKEN: ${{ secrets.PASSWORD }}
